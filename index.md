@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "Mio Archives"
-  text: "Mio Archives for best things"
-  tagline: My great project tagline
+  text: "Archives for best things"
+  tagline: View my main site at [Win7.win](https://win7.win)
   actions:
     - theme: brand
       text: Markdown Examples
