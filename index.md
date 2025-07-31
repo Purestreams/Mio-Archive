@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Mio Archive"
-  text: "Mio's Archive Site"
+  name: "Mio Archives"
+  text: "Mio Archives for best things"
   tagline: My great project tagline
   actions:
     - theme: brand
