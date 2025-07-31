@@ -1,10 +1,11 @@
+
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/base/',
   title: "Mio Archieve",
   description: "Mio's Achieve Site",
-  base: '/docs/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
