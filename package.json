@@ -8,7 +8,6 @@
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
-    "@phosphor-icons/vue": "^2.2.1",
     "vite-plugin-vitepress-auto-sidebar": "^1.7.1"
   }
 }
