@@ -8,11 +8,11 @@ hero:
   tagline: View my main site at [Win7.win](https://win7.win)
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: Main
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Manuals
+      link: /manuals
 
 features:
   - title: Feature A
