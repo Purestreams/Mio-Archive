@@ -5,12 +5,15 @@ layout: home
 hero:
   name: "Mio Archives"
   text: "Archives for best things"
-  tagline: Navigator <a href="https://win7.win"><i class="ph ph-globe-hemisphere-west"></i> Win7.win</a>
+  tagline: <a href="https://win7.win">Navigator <i class="ph ph-globe-hemisphere-west"></i> Win7.win</a>
   actions:
     - theme: brand
       text: Main
-      link: /markdown-examples
-    - theme: alt
+      link: /main
+    - theme: brand
+      text: Academics
+      link: /academics
+    - theme: brand
       text: Manuals
       link: /manuals
 
