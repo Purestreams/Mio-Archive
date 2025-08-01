@@ -3,7 +3,6 @@
 - **Course:** CCGL9032 Rule of Law in a Globalizing World
 - **Date:** December 2022
 
----
 
 ## Introduction: An Ethical Dilemma
 
