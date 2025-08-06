@@ -4,8 +4,6 @@
 
 ## Investigating Quality and Cost-Effectiveness of Different Video Platforms
 
----
-
 ## 1. Introduction
 
 In today's digital age, video platforms are a major source of entertainment and information. With the rapid advancement of technology and the widespread use of the internet, numerous video platforms have emerged. With so many options, it can be difficult to determine which platform offers the best watching experience.
@@ -13,8 +11,6 @@ In today's digital age, video platforms are a major source of entertainment and 
 Video codecs are essential for modern video platforms. The term 'codec' combines 'encoder' and 'decoder' (Li, 2019). The encoder compresses the video file into a digital format, while the decoder decompresses it for playback. Codecs help reduce file size and enable smooth playback on various devices. Each platform uses different codecs, resulting in differences in video quality. This study investigates how codecs affect video quality and the cost-effectiveness of data usage across different platforms.
 
 By analyzing factors such as video resolution, codec efficiency, and data usage, we recommend which video platform and resolution to choose to economize data usage and achieve the best watching experience from both sensory and economic perspectives.
-
----
 
 
 ## 2. Methodology
@@ -57,21 +53,15 @@ An online survey was conducted to obtain respondents' subjective feelings while 
 #### Score on Video Impairment
 - Video impairment evaluates the quality loss on different platforms. The measurement is based on two key indicators: **PSNR** and **SSIM**.
 
----
-
 
 ## 3. Prediction
 
 With the popularity of smartphones, the amount of time spent using technology is expected to increase. As technology becomes more accessible, people will likely watch videos more frequently. From a client perspective, we predict that improving video quality will increase viewer satisfaction, but will also require more data usage.
 
----
-
 
 ## 4. Hypothesis
 
 Cost-effectiveness will decline if increased data usage is required to achieve higher viewer satisfaction, but the improvement in video quality does not match the additional cost.
-
----
 
 
 ## 5. Assumptions
@@ -82,8 +72,6 @@ Cost-effectiveness will decline if increased data usage is required to achieve h
 4. Users have similar preferences for video quality and are willing to sacrifice some quality to save cost.
 5. The same video content is available on each platform at a fixed resolution for fair comparison.
 6. The same video quality settings are used for each platform.
-
----
 
 
 
@@ -124,8 +112,6 @@ Given two signals $x$ and $y$, the structural similarity is defined as:
 
 
 SSIM measures how similar two digital images are. It is more consistent with human visual perception than PSNR.
-
----
 
 
 ## 7. Evaluation of Platform Scores
@@ -172,8 +158,6 @@ Where $\alpha$ and $\beta$ are preference ratios from the survey.
 | Instagram  |  N/A  |  N/A  |   N/A    | 2.57    | 6.59    | 9.16     |
 | WeChat     |  N/A  |  N/A  |   N/A    | 0.67    | 1.13    | 1.8      |
 
----
-
 
 ## 8. Conclusion
 
@@ -190,8 +174,6 @@ For 2160p (4K) video quality, the ranking is:
 After extensive research, data analysis, and user testing, we found that YouTube offers the best combination of quality and cost-effectiveness, with the highest encoding efficiency and lowest data usage. Bilibili is less cost-effective at 1080p but slightly better at 4K. For example, at 1080p 30fps, YouTube used only half the data of Bilibili for similar quality. WeChat performed poorly, providing extremely low video quality.
 
 **Recommendation:** For the best viewing experience and quality, YouTube is the best choice among the options studied, offering stable and cost-effective results.
-
----
 
 
 ## 9. Evaluation & Limitations
@@ -216,16 +198,12 @@ While conducting this project, we encountered several limitations:
 6. Use automated testing to reduce technical bias.
 7. Test on multiple devices for consistency.
 
----
-
 
 ## References
 
 - Akyazi, P., & Ebrahimi, T. (2018). Comparison of Compression Efficiency based on Subjective Quality. Assessments. 2018 Tenth International Conference on Quality of Multimedia Experience (QoMEX).
 - Miyamoto, Y., Ohta, M., Yano, M., & Nishitani, T. (1992). A Multimedia System Based on Mpeg Video. Coding Algorithm. 4th IEEE ComSoc Workshop on Multimedia Communications. MULTIMEDIA.
 - Li, F. F., & Cox, T. J. (2019). Digital signal processing in audio and acoustical engineering. Taylor & Francis.
-
----
 
 
 ## Appendix
@@ -238,5 +216,3 @@ While conducting this project, we encountered several limitations:
 | **Score**      | 21.89  | 27.67    | 15.54     | 9.86   | 6.30     | 4.85      | 17.72  | 17.83     | 25.38    | 8.05   | 6.67      | 5.97     | 6.59  | 10.29 | 10.28 | 6.12  |
 | **Resolution Ratio (1080p = 1)** | 4.00 | 1.00 | 1.00 | 4.00 | 1.00 | 1.00 | 4.00 | 1.00 | 1.00 | 4.00 | 1.00 | 1.00 | 1.00 | 0.25 | 0.11 | 0.11 |
 | **Normalized Score** | 87.56 | 27.67 | 15.54 | 39.46 | 6.30 | 4.85 | 70.87 | 17.83 | 25.38 | 32.19 | 6.67 | 5.97 | 6.59 | 2.57 | 1.13 | 0.67 |
-
----
