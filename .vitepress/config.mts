@@ -98,7 +98,7 @@ const customElements = [
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "Mio Archives",
-  description: "Mio Archives for best things",
+  description: "Mio Archives For Best Things",
 
   // Last updated time
   lastUpdated: true,
