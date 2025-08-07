@@ -4,6 +4,7 @@ import mathjax3 from 'markdown-it-mathjax3';
 import { withMermaid } from "vitepress-plugin-mermaid";
 
 
+
 const customElements = [
   'mjx-container',
   'mjx-assistive-mml',
@@ -99,6 +100,9 @@ export default withMermaid({
   title: "Mio Archives",
   description: "Mio Archives for best things",
 
+  // Last updated time
+  lastUpdated: true,
+
   // Mermaid support
   mermaid: {
       // refer https://mermaid.js.org/config/setup/modules/mermaidAPI.html#mermaidapi-configuration-defaults for options
@@ -134,6 +138,10 @@ export default withMermaid({
     ]
   },
   themeConfig: {
+    // Search
+    search: {
+      provider: 'local'
+    },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
