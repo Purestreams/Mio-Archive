@@ -48,3 +48,8 @@ We do not recommend using swapfiles on Btrfs filesystems with RAID configuration
 
 If you really need swap space, add a dedicated swap partition on a separate disk or use a non-RAID Btrfs filesystem for swapfile usage.
 
+## Reasons why swapfiles are not supported on Btrfs with RAID
+
+- The Linux swap subsystem needs a simple, stable, one-device mapping for every byte of a swapfile. Btrfs in RAID mode can’t guarantee that, so the kernel refuses it. 
+- The swapfile need to be used in low memory situations, but Btrfs software RAID can’t guarantee that the swapfile will be available when needed, which make the swapfile make no sense.
+
