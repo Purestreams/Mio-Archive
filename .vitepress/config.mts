@@ -145,9 +145,9 @@ export default withMermaid({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Main', link: '/main' },
+      { text: 'Math', link: '/Math' },
       { text: "Academics", link: '/academics' },
-      { text: 'Manuals', link: '/manuals' }
+      { text: 'Computer Science', link: '/Computer Science' }
     ],
 
     sidebar: [

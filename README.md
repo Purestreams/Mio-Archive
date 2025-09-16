@@ -3,3 +3,10 @@
 
 ### Mio Archives
 ### Archives for best things
+
+
+## How to use
+
+```
+npm run docs:dev
+```
