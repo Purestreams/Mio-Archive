@@ -111,15 +111,15 @@ Common notions:
 - Strict (strong) stationarity: The entire joint distribution of (X_t1, ..., X_tk) is invariant to shifts in time.
 - Weak (covariance) stationarity: It’s enough that:
   - Mean is constant (doesn’t depend on t):
-    $${latex}
+    $$
     \mathbb{E}[X_t]=\mu
     $$
   - Variance is constant and finite:
-    $${latex}
+    $$
     \operatorname{Var}(X_t)=\sigma^2
     $$
   - Autocovariance depends only on the lag h, not on t:
-    $${latex}
+    $$
     \operatorname{Cov}(X_t, X_{t+h})=\gamma(h)
     $$
 
@@ -132,11 +132,11 @@ Why it matters:
 
 Examples:
 - Stationary: AR(1) with
-  $${latex}
+  $$
   |\phi|<1
   $$
 - Non-stationary: Random walk (has a unit root)
-  $${latex}
+  $$
   X_t = X_{t-1} + \varepsilon_t
   $$
 
