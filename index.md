@@ -8,14 +8,14 @@ hero:
   tagline: <a href="https://win7.win">Navigator <i class="ph ph-globe-hemisphere-west"></i> Win7.win</a>
   actions:
     - theme: brand
-      text: Main
-      link: /main
-    - theme: brand
       text: Academics
       link: /academics
     - theme: brand
-      text: Manuals
-      link: /manuals
+      text: Computer Science
+      link: /Computer Science
+    - theme: brand
+      text: Math
+      link: /Math
 
 features:
   - title: Debugging Complex Issues
