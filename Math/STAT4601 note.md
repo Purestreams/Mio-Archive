@@ -103,6 +103,79 @@ Notes:
 - Zero covariance does not generally imply independence, but i.i.d. does give independence, hence covariance zero for all nonzero lags.
 
 
+### Example (T1.2)
+
+
+Here $Z_t = R \cos\big(2\pi(f t + \Phi)\big)$, with $\Phi \sim \mathrm{U}(0,1)$, $R \sim \mathrm{Rayleigh}(\sigma=1)$ with pdf $f_R(r) = r e^{-r^2/2}$ for $r>0$, and $R \perp \Phi$.
+
+Step 1: Go to polar coordinates
+- Let $\Theta = 2\pi \Phi$. Then $\Theta \sim \mathrm{Uniform}(0, 2\pi)$ and $\Theta \perp R$.
+- Define $X = R\cos\Theta$, $Y = R\sin\Theta$.
+- The joint density of $(R,\Theta)$ is
+$$
+f_{R,\Theta}(r,\theta) = \frac{1}{2\pi}\, r\, e^{-r^2/2}, \quad r>0,\ \theta \in [0,2\pi).
+$$
+- Transform $(r,\theta) \mapsto (x,y)$ with Jacobian $\bigl|\partial(x,y)/\partial(r,\theta)\bigr| = r$. Hence
+$$
+f_{X,Y}(x,y) = \frac{f_{R,\Theta}(r,\theta)}{r}
+= \frac{1}{2\pi}\, e^{-(x^2+y^2)/2}
+= \frac{1}{\sqrt{2\pi}} e^{-x^2/2}\cdot \frac{1}{\sqrt{2\pi}} e^{-y^2/2}.
+$$
+- Therefore $X, Y$ are independent $\mathcal{N}(0,1)$.
+
+Step 2: Express $Z_t$ linearly in $X$ and $Y$
+Using $\cos(a+b)=\cos a \cos b - \sin a \sin b$ and $\Theta = 2\pi\Phi$,
+$$
+Z_t = R\cos\big(2\pi f t + \Theta\big)
+= (R\cos\Theta)\cos(2\pi f t) - (R\sin\Theta)\sin(2\pi f t)
+= X\cos(2\pi f t) - Y\sin(2\pi f t).
+$$
+$$
+Z_t = R\cos(2\pi f t + \Theta)
+= (R\cos\Theta)\cos(2\pi f t) - (R\sin\Theta)\sin(2\pi f t)
+= X \cos(2\pi f t) - Y \sin(2\pi f t).
+$$
+
+(a) Distribution of Zt
+- Zt is a linear combination of independent N(0,1) variables, hence normal.
+- Mean:
+$$
+\mathbb{E}[Z_t] = \cos(2\pi f t)\,\mathbb{E}[X] - \sin(2\pi f t)\,\mathbb{E}[Y] = 0.
+$$
+- Variance:
+$$
+\operatorname{Var}(Z_t) = \cos^2(2\pi f t)\operatorname{Var}(X) + \sin^2(2\pi f t)\operatorname{Var}(Y)
+= \cos^2 + \sin^2 = 1.
+$$
+Therefore,
+$$
+Z_t \sim \mathcal{N}(0, 1).
+$$
+
+(b) Mean function and ACVF
+- Mean function:
+$$
+\mu_Z(t) = \mathbb{E}[Z_t] = 0 \quad \text{for all } t.
+$$
+- For h ∈ ℤ, with c_t = \cos(2\pi f t), s_t = \sin(2\pi f t),
+$$
+\gamma(h) = \operatorname{Cov}(Z_{t+h}, Z_t)
+= \mathbb{E}\big[(X c_{t+h} - Y s_{t+h})(X c_t - Y s_t)\big]
+= c_{t+h}c_t\,\mathbb{E}[X^2] + s_{t+h}s_t\,\mathbb{E}[Y^2]
+= c_{t+h}c_t + s_{t+h}s_t.
+$$
+Using the cosine addition identity,
+$$
+\gamma(h) = \cos(2\pi f h).
+$$
+
+Checks and remarks
+- γ(0) = 1 equals Var(Z_t).
+- The autocorrelation function is ρ(h) = γ(h)/γ(0) = cos(2π f h).
+- An equivalent derivation uses E[R^2]=2 for Rayleigh(σ=1) and the identity
+  cos x cos y = ½[cos(x−y)+cos(x+y)], integrating over the uniform phase to kill the cos(x+y) term.
+
+
 ## Stationarity of a Time Series
 
 Stationarity in a time series means its statistical properties do not change over time. Intuitively, the process “looks the same” no matter when you observe it.
