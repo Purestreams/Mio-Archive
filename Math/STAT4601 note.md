@@ -25,8 +25,6 @@ Answer:
 - Variance function: $$\operatorname{Var}(Z_t)=\frac{5}{4}\sigma_a^2\ \text{for all } t.$$
 
 
----
-
 ## Autocovariance and Autocorrelation Functions of a Time Series
 
 Here, Zt is an MA(1): $$Z_t=a_t-0.5\,a_{t-1},\qquad \mathbb{E}[a_t]=0,\ \operatorname{Var}(a_t)=\sigma_a^2,\ \operatorname{Cov}(a_t,a_s)=0\ (t\neq s).$$
@@ -84,8 +82,6 @@ $$
 So the ACF cuts off after lag 1, as expected for an MA(1) with parameter θ=−0.5.
 
 
----
-
 ## Covariance Function of a Time Series
 
 Because the noise terms {a_t} are i.i.d.
@@ -106,8 +102,6 @@ Notes:
 - Identical distribution is not needed for this step; independence alone implies zero covariance.
 - Zero covariance does not generally imply independence, but i.i.d. does give independence, hence covariance zero for all nonzero lags.
 
-
----
 
 ## Stationarity of a Time Series
 
