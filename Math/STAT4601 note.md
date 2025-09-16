@@ -108,11 +108,20 @@ Notes:
 Stationarity in a time series means its statistical properties do not change over time. Intuitively, the process “looks the same” no matter when you observe it.
 
 Common notions:
-- Strict (strong) stationarity: The entire joint distribution of (X_t1, ..., X_tk) is invariant to shifts in time. This is the most stringent definition.
+- Strict (strong) stationarity: The entire joint distribution of (X_t1, ..., X_tk) is invariant to shifts in time.
 - Weak (covariance) stationarity: It’s enough that:
-  - Mean is constant: E[X_t] = μ (doesn’t depend on t)
-  - Variance is constant and finite: Var(X_t) = σ²
-  - Autocovariance depends only on the lag h, not on t: Cov(X_t, X_{t+h}) = γ(h)
+  - Mean is constant (doesn’t depend on t):
+    $${latex}
+    \mathbb{E}[X_t]=\mu
+    $$
+  - Variance is constant and finite:
+    $${latex}
+    \operatorname{Var}(X_t)=\sigma^2
+    $$
+  - Autocovariance depends only on the lag h, not on t:
+    $${latex}
+    \operatorname{Cov}(X_t, X_{t+h})=\gamma(h)
+    $$
 
 Implications:
 - No deterministic trend or changing variance over time.
@@ -122,8 +131,14 @@ Why it matters:
 - Many classical models (ARMA, SARIMA) and inference methods assume stationarity to ensure stable parameters and reliable forecasting.
 
 Examples:
-- Stationary: AR(1) with |φ| < 1.
-- Non-stationary: Random walk X_t = X_{t-1} + ε_t (has a unit root), series with trends, seasonality, or structural breaks.
+- Stationary: AR(1) with
+  $${latex}
+  |\phi|<1
+  $$
+- Non-stationary: Random walk (has a unit root)
+  $${latex}
+  X_t = X_{t-1} + \varepsilon_t
+  $$
 
 How to diagnose:
 - Visual checks: mean/variance shifts, persistent ACF.
