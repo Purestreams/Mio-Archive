@@ -27,6 +27,65 @@ Answer:
 
 ---
 
+## Autocovariance and Autocorrelation Functions of a Time Series
+
+Here, Zt is an MA(1): $$Z_t=a_t-0.5\,a_{t-1},\qquad \mathbb{E}[a_t]=0,\ \operatorname{Var}(a_t)=\sigma_a^2,\ \operatorname{Cov}(a_t,a_s)=0\ (t\neq s).$$
+
+(c) Autocovariance function (ACVF) γ(h)
+- Definition: $$\gamma(h)=\operatorname{Cov}(Z_{t+h},Z_t).$$
+
+1) h=0
+$$
+\gamma(0)=\operatorname{Var}(Z_t)
+=\operatorname{Var}(a_t-0.5a_{t-1})
+=\sigma_a^2+0.25\sigma_a^2
+=\tfrac{5}{4}\sigma_a^2.
+$$
+
+2) h=1
+$$
+\gamma(1)=\operatorname{Cov}(Z_{t+1},Z_t)
+=\operatorname{Cov}(a_{t+1}-0.5a_t,\ a_t-0.5a_{t-1})
+=-0.5\,\operatorname{Var}(a_t)
+=-0.5\,\sigma_a^2.
+$$
+
+3) h=-1 (symmetry)
+$$
+\gamma(-1)=\gamma(1)=-0.5\,\sigma_a^2.
+$$
+
+4) |h|≥2
+- The sets {a_{t+h}, a_{t+h-1}} and {a_t, a_{t-1}} share no common index, hence are independent:
+$$
+\gamma(h)=0,\quad |h|\ge 2.
+$$
+
+Summary:
+$$
+\gamma(h)=
+\begin{cases}
+\tfrac{5}{4}\sigma_a^2, & h=0,\\
+-0.5\,\sigma_a^2, & h=\pm 1,\\
+0, & |h|\ge 2.
+\end{cases}
+$$
+
+(d) Autocorrelation function (ACF) ρ(h)
+- Definition: $$\rho(h)=\dfrac{\gamma(h)}{\gamma(0)}.$$
+
+Compute:
+$$
+\rho(0)=1,\qquad
+\rho(\pm 1)=\frac{-0.5\,\sigma_a^2}{\tfrac{5}{4}\sigma_a^2}=-\frac{2}{5}=-0.4,\qquad
+\rho(h)=0\ \text{for } |h|\ge 2.
+$$
+
+So the ACF cuts off after lag 1, as expected for an MA(1) with parameter θ=−0.5.
+
+
+---
+
 ## Covariance Function of a Time Series
 
 Because the noise terms {a_t} are i.i.d.
