@@ -129,6 +129,50 @@ Interpretation: Spikes at multiples of 12 suggest seasonal AR or MA terms; start
 
 ---
 
+## Sample filled lag table (illustrative)
+
+Suppose $n=100$ (so bounds ≈ ±0.196). The following values are typical of a series that likely needs one difference and then shows low-order ARMA behavior:
+
+| Lag | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Sample ACF of $Z_t$ | 0.96 | 0.95 | 0.94 | 0.92 | 0.88 | 0.87 | 0.86 | 0.84 |
+| Sample PACF of $Z_t$ | 0.96 | 0.40 | 0.12 | -0.07 | -0.02 | -0.13 | 0.08 | -0.11 |
+| Sample ACF of $\nabla Z_t$ | -0.46 | 0.09 | 0.09 | -0.04 | -0.08 | 0.09 | -0.06 | -0.02 |
+| Sample PACF of $\nabla Z_t$ | -0.46 | -0.08 | 0.23 | -0.03 | 0.13 | -0.11 | -0.01 | -0.09 |
+
+Interpretation at a glance:
+- $Z_t$ ACF very high and decaying slowly → likely nonstationary (unit root).
+- After differencing, the ACF values are small (many within bounds) with a notable negative spike at lag 1 → suggests an MA(1) component in the differenced data.
+
+
+### Fingerprints: how ACF/PACF imply $(p,d,q)$
+
+Decide $d$ first, then choose $(p,q)$ on the stationary series (after differencing).
+
+### 3.1 Decide the differencing order $d$
+
+Heuristics:
+- If ACF of $Z_t$ stays very high and decays slowly (no clear cutoff): try $d=1$.
+- If after one difference, $\rho_{\nabla Z}(1)$ is strongly negative (≈ −0.4 to −0.6) and the rest near 0, you likely used the correct $d$ (common with ARIMA$(0,1,1)$). If many large lags remain, the differenced series still has AR terms (consider ARIMA$(p,1,q)$ with $p>0$).
+- Formal tests to confirm:
+  - ADF test (look for rejection of unit root after differencing).
+  - KPSS test (stationarity not rejected after differencing).
+
+Keep $d$ as small as possible (avoid overdifferencing).
+
+### 3.2 Identify $(p,q)$ on the stationary series
+
+Rules of thumb (nonseasonal):
+- AR($p$): PACF “cuts off” at $p$, ACF tails off (geometric/damped sine).
+- MA($q$): ACF “cuts off” at $q$, PACF tails off.
+- ARMA($p,q$): both ACF and PACF tail off (no sharp cutoffs).
+- Alternating signs with geometric damping suggests a negative AR parameter.
+
+Seasonal: spikes at multiples of $s$ → add seasonal terms $(P,D,Q)_s$.
+
+
+---
+
 ## Quick decision chart (nonseasonal)
 
 1) Is $Z_t$ stationary?
