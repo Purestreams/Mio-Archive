@@ -129,6 +129,38 @@ Interpretation: Spikes at multiples of 12 suggest seasonal AR or MA terms; start
 
 ---
 
+
+## Additional sample “fingerprint” tables (for reference)
+
+### A) ARIMA(0,1,1): $(1-B)Z_t = a_t - 0.6 a_{t-1}$ (typical)
+- ACF of $Z_t$: near‑unit‑root decay (very high, very slow).
+- ACF of $\nabla Z_t$: large negative at lag 1, near zero afterward.
+
+| Lag | 1 | 2 | 3 | 4 | 5 | 6 |
+|---:|---:|---:|---:|---:|---:|---:|
+| ACF of $Z_t$ | 0.98 | 0.96 | 0.94 | 0.92 | 0.90 | 0.88 |
+| ACF of $\nabla Z_t$ | -0.47 | ~0 | ~0 | ~0 | ~0 | ~0 |
+| PACF of $\nabla Z_t$ | -0.47 | small | small | small | small | small |
+
+### B) ARIMA(1,1,0): $(1-0.4B)(1-B)Z_t = a_t$
+- Differenced series is AR(1) with $\phi=0.4$; ACF of $\nabla Z_t$ decays geometrically, no sharp cutoff.
+
+| Lag | 1 | 2 | 3 | 4 | 5 |
+|---:|---:|---:|---:|---:|---:|
+| ACF of $\nabla Z_t$ | 0.40 | 0.16 | 0.06 | 0.03 | 0.01 |
+| PACF of $\nabla Z_t$ | 0.40 | ~0 | ~0 | ~0 | ~0 |
+
+### C) ARIMA(1,1,1): $(1-(-0.7)B)(1-B)Z_t = (1+0.3B)a_t$
+- Differenced ACF alternates with damping.
+
+| Lag | 1 | 2 | 3 | 4 | 5 |
+|---:|---:|---:|---:|---:|---:|
+| ACF of $\nabla Z_t$ | -0.45 | 0.32 | -0.23 | 0.16 | -0.11 |
+| PACF of $\nabla Z_t$ | -0.45 | small | small | small | small |
+
+---
+
+
 ## Sample filled lag table (illustrative)
 
 Suppose $n=100$ (so bounds ≈ ±0.196). The following values are typical of a series that likely needs one difference and then shows low-order ARMA behavior:
