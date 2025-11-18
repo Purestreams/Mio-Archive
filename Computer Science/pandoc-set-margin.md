@@ -31,6 +31,12 @@ geometry:
 ---
 ```
 
+## Use in CLI
+
+```bash
+pandoc input.md -V geometry:margin=1in -o output.pdf
+```
+
 ## Pandoc Command
 
 To generate the PDF, you'll need to have a LaTeX distribution installed (like TeX Live, MiKTeX, or MacTeX). Then, use the following Pandoc command in your terminal:
