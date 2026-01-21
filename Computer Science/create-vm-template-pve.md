@@ -21,6 +21,8 @@ mkdir -p qcow2
 cd qcow2
 # Download the Debian 13 Cloud ISO
 wget https://cloud.debian.org/images/cloud/trixie/20250814-2204/debian-13-genericcloud-amd64-20250814-2204.qcow2
+# or Ubuntu 24.04
+wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 ``` 
 
 ## Create a new VM in Proxmox VE
@@ -40,7 +42,7 @@ wget https://cloud.debian.org/images/cloud/trixie/20250814-2204/debian-13-generi
 1. Open a terminal on your PVE server or use the web-based shell.
 
 ```bash
-qm importdisk 101 /var/lib/vz/template/debian-13-genericcloud-amd64-20250814-2204.qcow2 local --format=qcow2
+qm importdisk 101 /var/lib/vz/template/qcow2/debian-13-genericcloud-amd64-20250814-2204.qcow2 local --format=qcow2
 ```
 
 Breakdown of the command:
