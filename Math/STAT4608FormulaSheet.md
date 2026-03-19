@@ -1,5 +1,7 @@
 # STAT4608 Formula Sheet
 
+From Ch1 to ch5
+
 ### 1. Asset Returns
 Understanding basic return calculations is fundamental before assessing market risk.
 
