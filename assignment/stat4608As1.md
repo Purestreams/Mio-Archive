@@ -111,7 +111,7 @@ Conclusion: The critical value for $\chi^2(1)$ at 5% is 3.84. Since $2.27 < 3.84
 
 
 ### (c) Likelihood-Ratio Test for Independence ($LR_{ind}$)
-Using the Markov state parameters:
+
 
 - $T_{11} = 3$ (exceptions following an exception)
 - $T_1 = 10$ (total exceptions). Thus, $T_{01} = T_1 - T_{11} = 7$
@@ -133,7 +133,7 @@ Conclusion: Since $9.54 > 3.84$, we reject the null hypothesis of independence a
 
 ## Q4
 
-First, convert the annual parameters to daily parameters assuming 250 trading days:
+convert the annual parameters to daily parameters assuming 250 trading days:
 - $\sigma_A^2 = \frac{0.20^2}{250} = 0.00016$
 - $\sigma_B^2 = \frac{0.15^2}{250} = 0.00009$
 - Covariance $\sigma_{AB} = \frac{-0.4 \times 0.20 \times 0.15}{250} = -0.000048$
@@ -167,7 +167,8 @@ Undiversified VaR: $$29,421.83 + 44,132.75 = \$73,554.58$$
 ### (c) Daily marginal VaRs at 99%
 Marginal VaR measures the risk contribution per unit of capital. $\Delta VaR = VaR_p \frac{\Sigma x}{x^{\prime}\Sigma x}$.
 
-First, calculate the vector $\Sigma x$:
+calculate the vector $\Sigma x$:
+
 Row A: $$(\Sigma x)_A = x_A \sigma_A^2 + x_B \sigma_{AB} = 160 - 96 = 64$$
 
 Row B: $$(\Sigma x)_B = x_A \sigma_{AB} + x_B \sigma_B^2 = -48 + 180 = 132$$
