@@ -27,7 +27,10 @@ VaR measures the maximum expected loss at a given significance level over a targ
 
 **Parametric Approach (Normal Distribution):**
 * **Explanation:** Assumes returns follow a normal distribution.
-* **Relative VaR Formula:** $$VaR(\mu)=V_{0}Z_{\alpha}S$$
+* **Relative VaR Formula:** 
+
+$$VaR(\mu)=V_{0}Z_{\alpha}S$$
+
 * **Example:** With a mean of 0.04%, standard deviation of 0.5%, $V_0=100,000$, and $Z_{0.02}=2.054$, the relative VaR is $100,000 \times 2.054 \times 0.005 = \$1,027$. The absolute VaR is $1,027 - (100,000 \times 0.0004) = \$987$.
 
 ---
@@ -42,7 +45,9 @@ ES measures the expected loss given that the loss has exceeded the VaR threshold
 * **Example:** If 5 returns exceed the VaR threshold, their average is $\frac{-7.2-5.3-3.0-2.6-2.5}{5} = -4.12\%$. The ES is $100,000 \times 0.0412 = \$4,120$.
 
 **Parametric Approach (Normal Model):**
-* **Formula:** $$\hat{ES}=\frac{\hat{\sigma}_{W}\phi(\hat{q})}{\alpha}-\hat{\mu}_{W}$$
+* **Formula:** 
+
+$$\hat{ES}=\frac{\hat{\sigma}_{W}\phi(\hat{q})}{\alpha}-\hat{\mu}_{W}$$
 
 ---
 
