@@ -132,8 +132,15 @@ export default withMermaid({
       // add plugin
       AutoSidebar({
         path: '',
-        // You can also set options to adjust sidebar data
-        // see option document below
+        beforeCreateSideBarItems: (data: string[]) => {
+          return data.sort((a, b) => {
+            const aIsIndex = a === 'index.md' || a === 'index' || a === 'index.html';
+            const bIsIndex = b === 'index.md' || b === 'index' || b === 'index.html';
+            if (aIsIndex && !bIsIndex) return -1;
+            if (!aIsIndex && bIsIndex) return 1;
+            return a.localeCompare(b);
+          });
+        }
       })
     ]
   },
