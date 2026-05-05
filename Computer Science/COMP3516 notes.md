@@ -6,61 +6,72 @@ geometry: margin=1.5cm
 
 ## Revision Guide: Core Concepts, Formulas, and Practice Questions
 
-This guide is organized to help you scan the key ideas quickly, then review the formulas and sample calculations in one place.
+### Part 1: Comprehensive Revision Notes (Extended)
 
----
+#### 1. Distributed Systems & Middleware Architecture
+*   **The TCP/IP Protocol Stack:** Operates natively over Transport (TCP, UDP), Network (IP), and Data Link (Ethernet) layers, utilizing the Sockets API (`connect()`, `listen()`) as the fundamental network programming interface[cite: 1].
+*   **Web Services & Messaging Paradigms:**
+    *   **SOAP & WSDL:** SOAP uses XML for transport over HTTP/SMTP/UDP, while WSDL uses XML to describe the service's technical details (methods, port types, endpoints)[cite: 2].
+    *   **UDDI:** Acts as the registry/directory for client applications to discover these web services[cite: 2].
+    *   **JMS (Java Message Service):** Supports **Synchronous** messaging (client blocks and waits for a reply, like a phone call) and **Asynchronous** messaging (event-triggered, no waiting, like an email)[cite: 3].
+*   **Remote Procedure Call (RPC) Deep Dive:** 
+    *   Standard RPC execution follows 6 strict steps: The client calls the local stub -> Stub marshals parameters into a network message -> OS transmits packet -> Server OS receives packet -> Server skeleton unmarshals parameters -> Server procedure is invoked[cite: 1].
+    *   **Standard vs. Multi-threaded:** Standard RPC blocks the client and server processes entirely. Multi-threaded RPC allows servers to handle thousands of concurrent clients and clients to remain responsive, but introduces severe shared-state synchronization hazards (requiring locks)[cite: 1].
+*   **Java RMI (Remote Method Invocation) Advanced Mechanics:**
+    *   **The Stub:** Acts as the client's local proxy. It initiates the JVM connection, marshals parameters, waits, and unmarshals the return value[cite: 2, 3].
+    *   **UnicastRemoteObject:** The base class for standard transient point-to-point servers. It automatically exports the object to the RMI runtime and listens on a TCP port upon construction[cite: 1].
+    *   **Object Serialization:** To be transmitted over RMI, a class *and all of its member fields* must strictly implement `java.io.Serializable`[cite: 1].
+    *   **Dynamic Class Loading & Polymorphism:** RMI supports fetching missing stub class definitions from remote HTTP/FTP servers at runtime (via `java.rmi.server.codebase`). This enables remote polymorphism, where a client can receive and execute a concrete subclass (e.g., an `MP3` object) even if it only asked for the base class (`Multimedia`)[cite: 1].
 
-## **Part 1: Course Revision Notes**
+#### 2. Transactions, ACID, and Two-Phase Commit (2PC)
+*   **ACID Properties & Common Violations:**
+    *   **Atomicity:** All-or-nothing execution. Violated if a transaction is partially completed and then overwritten by another concurrent transaction[cite: 3].
+    *   **Consistency:** Data transforms from one valid state to another. Violated if two concurrent operations update the same variable and one update is lost[cite: 3].
+    *   **Isolation:** Transactions must remain hidden from each other. Violated if variables are read *outside* of a locked critical section, or if a lock is released and re-acquired mid-transaction, allowing other transactions to sneak in and modify the state[cite: 2, 3].
+    *   **Durability:** Committed data is saved permanently and survives crashes[cite: 3].
+*   **Two-Phase Commit (2PC) Mechanics & Failure Edge Cases:**
+    *   **Purpose:** Ensures all-or-nothing atomicity across distributed nodes[cite: 3].
+    *   **Phase 1 (Prepare):** Participants lock resources, write to a persistent log, and vote 'Yes' or 'No'[cite: 1]. 
+    *   **Phase 2 (Commit/Abort):** Coordinator evaluates votes. A single 'No' or a timeout forces a global abort[cite: 1].
+    *   **The Availability Trade-off:** 2PC is fundamentally unsuited for high availability; if even one replica server crashes, 2PC will abort every write, taking the system offline[cite: 3].
+    *   **Coordinator Crashes:** If a coordinator crashes *after* deciding to commit but before telling all participants, it must recover this decision from its persistent storage upon reboot and resend the COMMIT messages[cite: 4].
+    *   **Split-Brain Danger:** If a client assumes a dead coordinator is gone and restarts the transaction with a *new* coordinator (who decides to abort), but the *old* coordinator wakes up and sends its previous commit messages, atomicity is fatally violated[cite: 4].
 
-#### **1. Wireless IoT & Connectivity (Lecture 2)**
+#### 3. Concurrency, Locks, and Consistency Models
+*   **Scalability & Amdahl's Law:** Parallel scalability is strictly bounded by the non-parallelizable (serial) fraction of the workload[cite: 1]. Coarse-grain parallelism (large independent tasks) is highly efficient, whereas fine-grain parallelism wastes runtime on communication overhead[cite: 1].
+*   **Sequential Consistency (SC):**
+    *   Requires a single global execution order that all processes agree upon[cite: 1].
+    *   *Reachability Rule:* If all processors read old initial values (e.g., A, B, C = 0) after their respective writes, it is mathematically impossible under SC because it creates an unresolvable chronological cycle[cite: 4].
+*   **Causal Consistency:** Weaker than SC. Enforces identical global ordering *only* for causally linked events (e.g., if P1 writes a value, and P2 reads that value and writes a new one, all nodes must see P1's write before P2's write). Independent concurrent writes can be seen in any order[cite: 1].
+*   **Strict Locking Rules:**
+    *   **Read-Only Transactions:** Someone claiming read-only transactions don't need locks is **wrong**. Without locks, a read-only transaction can observe a non-serializable, intermediate state (e.g., seeing one variable updated but not another)[cite: 4].
+    *   **Early Lock Release:** Releasing a lock immediately after using a variable (before the transaction ends) is **unsafe** and breaks two-phase locking, leading to non-serializable outcomes[cite: 4].
 
-*   **Evolution of Networks:** Computing progressed from high-performance machines to the internet, and now to **AIoT** (Artificial Intelligence of Things), where connectivity and sensing are omnipresent.
-*   **Cellular Generations:** Each generation optimizes cost while enabling new use cases (e.g., 2G for digital voice, 4G for broadband data/LTE, 5G for industrial IoT and extreme data rates).
-*   **IoT Wireless Protocols:**
-    *   **Bluetooth & BLE:** Short-range Personal Area Networks (PANs). BLE is heavily optimized for low power.
-    *   **Wi-Fi:** High data rate, ubiquitous 802.11 standard.
-    *   **Zigbee:** IEEE 802.15.4 standard; optimized for low power, low data rates, and mesh networking.
-    *   **LPWAN (LoRa):** Low Power Wide Area Networks provide extremely long-range and low-bandwidth communication. LoRa uses Chirp Spread Spectrum (CSS) modulation, which makes it highly resilient to interference.
+#### 4. Distributed Consensus: Raft & Blockchains
+*   **Raft Protocol Mechanics:**
+    *   **Log Configuration Rules:** Log terms must strictly be non-decreasing as the index increases (e.g., term 3 cannot precede term 2)[cite: 4]. Furthermore, a log cannot contain "holes"; missing entries are illegal[cite: 4].
+    *   **Commit Safety:** Log entries are only "safe to apply" to state machines if they are present on a majority of nodes *and* are protected from being overwritten by any potential future leader[cite: 4].
+    *   **Old Leader Edge Case:** An old, disconnected leader can actually finish committing an old log entry if it receives delayed AppendEntries responses from a majority that overlaps with the new leader's majority. This doesn't break Raft because the new leader is forced to preserve that committed entry[cite: 4].
+*   **PBFT (Practical Byzantine Fault Tolerance):** Tolerates up to $f$ malicious nodes using a minimum of $3f+1$ total nodes[cite: 1]. BFT provides absolute mathematical safety, but only best-effort liveness[cite: 1].
+*   **Enterprise Blockchains:**
+    *   **Hyperledger Fabric (HLF):** Uses an "Execute-Order-Validate" workflow. Endorsing peers execute logic before ordering. It supports non-deterministic logic but throughput collapses under high contention[cite: 1].
+    *   **BIDL:** A datacenter-optimized architecture that runs Execution and Consensus phases in *parallel* concurrently, achieving low latency, high contention throughput, and non-deterministic support[cite: 1].
 
-#### **2. Signals & Sensing Basics (Lectures 3 & 4)**
+#### 5. Large-Scale Data Processing: MapReduce & Spark
+*   **MapReduce Design Constraints:**
+    *   **Strict Statelessness:** `map` and `reduce` functions must never use static or persisted variables (like `HashMap`s) to track state between records, because the framework does not guarantee execution order or worker assignment[cite: 1].
+    *   **No Manual I/O:** Developers must never perform manual file reading/writing inside the functions; all output must use the `emit()` method[cite: 1].
+    *   **Key Overloading:** Mapping all records to a single intermediate key destroys parallelism and causes job failure[cite: 1].
+*   **Apache Spark Advantages:**
+    *   **In-Memory RDDs:** By caching Resilient Distributed Datasets in memory, Spark avoids the catastrophic disk I/O overhead of Hadoop, achieving sorting records 3x faster with 1/10th the nodes[cite: 1].
+    *   **Transformations vs. Actions:** Transformations (e.g., `map`, `filter`) are lazily evaluated and create new RDDs. Actions (e.g., `collect`, `count`) trigger actual execution[cite: 1]. 
+    *   **Narrow vs. Wide:** Narrow transformations (like `map`) execute locally. Wide transformations (like `groupByKey`) require an expensive cross-cluster network shuffle[cite: 1].
+*   **Spark Streaming:** Operates on Discretized Streams (DStreams) by breaking live data into micro-batches (as small as 0.5 seconds)[cite: 1]. It provides exactly-once processing and can recover from node failures in less than 1 second[cite: 1].
 
-*   **Analog vs. Digital:** Analog signals are continuous, while digital signals are discrete. The conversion process (ADC) involves **sampling** (time domain) and **quantization** (amplitude domain).
-*   **Complex Signals & FFT:** Complex signals combine sine and cosine components via the complex plane. The Fast Fourier Transform (FFT) converts time-domain signals into the frequency domain, which is essential for identifying patterns like pathological tremors.
-*   **FMCW Radar (mmWave):** Frequency Modulated Continuous Wave radar operates using linear chirps (frequency increases linearly over time).
-    *   **Range:** Extracted using a Range-FFT on the Intermediate Frequency (IF) signal.
-    *   **Velocity (Doppler):** Measured via small phase shifts across consecutive chirps (Doppler-FFT).
-    *   **Angle of Arrival (AoA):** Calculated by measuring phase differences across an array of multiple receiving antennas.
-
-#### **3. WiFi Sensing & Channel State Information (Lectures 5.1 & 5.2)**
-
-*   **RSSI vs. CSI:** Received Signal Strength Indicator (RSSI) is a single, unstable scalar value representing total power. Channel State Information (CSI) provides fine-grained, stable amplitude and phase data for every OFDM subcarrier.
-*   **Multipath Effect:** Wireless signals bounce off walls and objects, arriving at the receiver via multiple paths (Line-of-Sight and Non-Line-of-Sight).
-*   **Sensing Approaches:**
-    *   **Geometric:** Uses Time of Flight (ToF), Angle of Arrival (AoA), and Doppler Frequency Shift (DFS).
-    *   **Statistical:** Relies on the Autocorrelation Function (ACF) to extract speed and periodic motions (e.g., breathing) independently of user location or direction.
-
-#### **4. Systems Design & Mobile Sensing (Lectures 6 & 7)**
-
-*   **System Pipeline:** Data flows from Hardware/Sensors -> Data Acquisition (via protocols like **MQTT**) -> Preprocessing (Windowing/Filtering) -> Core Algorithms -> User Interface.
-*   **Target Detection:** Uses techniques like Constant False Alarm Rate (CFAR) to evaluate test cells against background noise.
-*   **Mobile Sensing (IMUs):** Smartphones use accelerometers, gyroscopes, and magnetometers to track motion. Standard tasks like step counting use Finite State Machines (FSM) to detect peaks and valleys in the acceleration signal.
-*   **Human Activity Recognition (HAR):** Traditional pipelines involve data collection, feature extraction (mean, variance, peaks), and classical machine learning (SVM, K-NN). Modern approaches increasingly use Large Language Models (LLMs) to synthesize training data.
-
-#### **5. Indoor Localization (Lecture 8)**
-
-*   **The Problem:** GPS fails indoors due to structural blocking and severe multipath interference.
-*   **Mainstream Approaches:**
-    *   **Trilateration:** Uses geometric intersection of ranges (Time-of-Flight or RSSI) from known anchors.
-    *   **Fingerprinting:** Matches live radio/magnetic signatures against a pre-surveyed reference map. Very accurate but requires heavy maintenance.
-    *   **Pedestrian Dead-Reckoning (PDR):** Uses IMUs to integrate step counts and heading over time. It suffers from unbounded accumulative error.
-
-#### **6. Deep Wireless Sensing & Evaluation (Lectures 9 & 10)**
-
-*   **Deep Learning Challenges:** CSI data is non-visual, complex-valued, and highly sensitive to environmental domain shifts. 
-*   **Data Augmentation & Synthesis:** Frameworks like RFBoost use physical data augmentation (time/frequency shifts), while RF-Diffusion uses generative AI to synthesize authentic training data.
-*   **System Evaluation:** It is critical to choose the right metrics based on the application's real-world cost of errors.
-    *   **Classification:** Accuracy, Precision, Recall, F1-Score, and ROC Curves (plotting True Positive Rate against False Positive Rate).
-    *   **Regression:** Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and Cumulative Distribution Functions (CDF).
+#### 6. Production Traffic & Caching (Facebook Photo Stack)
+*   **Traffic Distribution:** The client browser cache is the hero of the stack, absorbing 65.5% of all traffic[cite: 1]. The Edge PoP absorbs 20%, the Origin Cache 4.6%, leaving the Haystack Backend to serve only 9.9% of total traffic[cite: 1].
+*   **The Backend's Role:** While the edge caches serve viral "head" content, the backend storage effectively serves the vast "tail" of the popularity distribution (highly unpopular, rarely accessed photos)[cite: 1].
+*   **S4LRU Segmented Caching:** S4LRU splits the cache into 4 tiers (L3 down to L0)[cite: 1]. New misses are safely quarantined in the lowest L0 segment and are only promoted to higher segments upon proven reuse[cite: 1]. S4LRU at 1/3 the memory footprint matches standard FIFO performance[cite: 1].
 
 ---
 
