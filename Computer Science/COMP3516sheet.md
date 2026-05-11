@@ -26,13 +26,13 @@ OFDM and Features: Orthogonal Frequency Division Multiplexing splits one wideban
 
 CSI Representation Tradeoffs: Raw time-series preserves physical phase information and needs minimal preprocessing for low latency, but suffers heavy noise from hardware offsets and requires massive training data./ Spectrograms visualize rhythmic cycles such as breathing and can leverage pre-trained vision models, but STFT introduces high computational overhead and loses transient temporal resolution./ Spatial matrices capture MIMO diversity and frequency correlations, but they have high risk of environment overfitting and poor cross-room generalizability.
 
-Indoor Localization and Metrics: RSSI fingerprinting compares vectors using Euclidean distance $d(A, B) = \sqrt{\sum (p_i - q_i)^2}$./ RSSI confidence is reduced by path loss, shadowing, multipath effect, Non-line-of-sight propagation, environmental change, and hardware and OS latency./ Trilateration can be solved from circles or ellipses when geometric constraints are known./ TRRS measures multipath similarity rather than physical distance because spatial decorrelation happens within a few centimeters./ RTT methods such as BeepBeep can be accurate but are unsuitable for low-power tags because of recording power, hardware complexity, and processing cost./ 160 MHz bandwidth gives 0.9375 m resolution, while 80 MHz gives 3.75 m resolution.
+Indoor Localization and Metrics: RSSI fingerprinting compares vectors using Euclidean distance $d(A, B) = \sqrt{\sum (p_i - q_i)^2}$./ RSSI confidence is reduced by path loss, shadowing, multipath effect, Non-line-of-sight propagation, environmental change, and hardware and OS latency./ Trilateration can be solved from circles or ellipses when geometric constraints are known./ TRRS measures multipath similarity rather than physical distance because spatial decorrelation happens within a few centimeters./ RTT methods such as BeepBeep can be accurate but are unsuitable for low-power tags because of recording power, hardware complexity, and processing cost./ 160 MHz bandwidth gives 1.875 m resolution, while 80 MHz gives 3.75 m resolution.
 
 Indoor Localization Approaches and PDR: Fingerprinting matches live radio or magnetic signatures to a surveyed map and is accurate but labor-intensive to maintain./ PDR uses IMUs, step counts, and heading, but drift accumulates without bound over time./ Particle filters with floor maps remove impossible trajectories by assigning zero weight to particles that cross walls.
 
 Signal Propagation and Physics: Spatial resolution follows $\Delta d = c/B$ and determines whether separate paths can be resolved in the channel impulse response./ With 80 MHz WiFi, the resolution is 3.75 m, so paths separated by less than this merge into one CIR peak./ Penetration loss can be modeled as 0.5, and each reflection can attenuate by about 0.6./ A direct path can be weaker than a reflected path under Non-Line-of-Sight blockage./ Paths at 1 m and 3 m can merge into one peak when the resolution is too coarse.
 
-Sensing Estimation Theory: Nyquist requires $f_s \ge 2 f_{max}$ for reliable sensing./ A 30 BPM breathing signal corresponds to 0.5 Hz and therefore needs at least 1 Hz sampling./ Oversampling improves SNR by spreading quantization noise./ Maximal Ratio Combining maximizes static SNR but suppresses dynamic motion signals.
+Sensing Estimation Theory: Nyquist requires $f_s > 2 f_{max}$ for reliable sensing./ A 30 BPM breathing signal corresponds to 0.5 Hz and therefore needs at least 1 Hz sampling./ Oversampling improves SNR by spreading quantization noise./ Maximal Ratio Combining maximizes static SNR but suppresses dynamic motion signals.
 
 Reasons For and Against Deep Learning in Wireless Sensing: Reasons to use deep learning include automated feature extraction, because it can learn complex non-linear relationships in multipath signals without hand-crafted geometric or physical models such as the Fresnel Zone model./ Reasons to use deep learning also include superior handling of high-dimensional CSI data across multiple antennas, subcarriers, and time, allowing the model to capture correlations that simple threshold-based algorithms miss./ Reasons not to use deep learning include weak cross-domain generalizability, because a model may learn environment-related features rather than activity-related features and then fail in new environments without extensive retraining./ Reasons not to use deep learning also include interpretability and black-box issues, which make alarms harder to debug or trust in critical applications such as elderly fall detection.
 
@@ -54,7 +54,7 @@ Appendix:
 
 Nyquist sampling:
 $$
-f_s \ge 2f_{\max}
+f_s > 2f_{\max}
 $$
 do not sample below the boundary; wording can be "at least" or slightly above.
 
@@ -164,7 +164,7 @@ WiFi uses $\frac{c}{B}$, radar uses $\frac{c}{2B}$.
 
 Sanity check:
 $$
-160\text{ MHz} \Rightarrow 0.9375\text{ m}, \quad 80\text{ MHz} \Rightarrow 3.75\text{ m}
+160\text{ MHz} \Rightarrow 1.875\text{ m}, \quad 80\text{ MHz} \Rightarrow 3.75\text{ m}
 $$
 larger bandwidth means finer resolution.
 
@@ -224,7 +224,10 @@ $$
 $T$ in seconds.
 
 Normalized ACF:
-$R(0) = 1$ normalized ACF must start at 1.
+$$
+R(0) = 1
+$$
+normalized ACF must start at 1.
 
 Mobile Sensing:
 
