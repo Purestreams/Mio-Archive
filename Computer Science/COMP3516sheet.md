@@ -35,3 +35,195 @@ ACF Numerical Estimation: Constant speed follows $v = (f_d \cdot \lambda)/2$ fro
 Robot Inertial Tracking: Dead reckoning obtains location by integrating local $v_x(t)$ and $v_y(t)$ over time./ Global projection converts motion to the East-North frame using rotation angle $\theta$./ Constant velocity gives zero accelerometer reading./ Linearly changing velocity gives constant accelerometer amplitude./ Flat 2D motion gives zero gyroscope readings on the x and y axes.
 
 Tracking Tag Design: General resolution follows $\Delta d = v / 2B$, where $v$ is the speed of light or sound depending on the medium./ WiFi needs about 150 MHz bandwidth for 1 m accuracy./ Acoustic sensing needs only 171.5 Hz bandwidth for 1 m accuracy./ Pseudo-ultrasound in the 20-24 kHz band gives about 4.29 cm resolution without being intrusive.
+
+Appendix:
+
+Formula Summary with Exam Traps:
+
+PBFT node requirement:
+$$
+3f + 1
+$$
+Exam trap: confusing Byzantine fault tolerance with simple majority or crash-fault formulas.
+
+Nyquist sampling:
+$$
+f_s \ge 2f_{\max}
+$$
+Exam trap: using a sampling rate below the boundary; in descriptive answers it is safer to say at least or slightly above twice the maximum frequency.
+
+Shannon-Hartley theorem:
+$$
+C = B \cdot \log_2\left(1 + \frac{S}{N}\right)
+$$
+Exam trap: plugging in SNR in dB instead of linear scale, or forgetting that the log base is 2.
+
+Radar Formula List and Traps:
+
+FMCW round-trip delay:
+$$
+	au = \frac{2d}{c}
+$$
+Exam trap: forgetting the factor 2 for the out-and-back path.
+
+Beat frequency:
+$$
+f_{\tau} = S\tau
+$$
+Exam trap: confusing chirp slope $S$ with bandwidth $B$.
+
+FMCW range:
+$$
+d = \frac{c f_{\tau}}{2S}
+$$
+Exam trap: dropping the factor 2 or using carrier frequency instead of chirp slope.
+
+Radar range resolution:
+$$
+d_{res} = \frac{c}{2B}
+$$
+Exam trap: thinking higher carrier frequency alone improves range resolution when it is bandwidth that matters.
+
+Velocity from inter-chirp phase:
+$$
+v = \frac{\lambda \Delta \phi}{4 \pi T_c}
+$$
+Exam trap: using the whole frame time instead of chirp interval $T_c$.
+
+Velocity resolution:
+$$
+v_{res} = \frac{\lambda}{2T_f}
+$$
+Exam trap: confusing $T_f$ with $T_c$.
+
+Angle of arrival:
+$$
+	heta = \sin^{-1}\left(\frac{\lambda \Delta \phi}{2 \pi s}\right)
+$$
+Exam trap: mixing phase difference across antennas with phase difference across chirps, or forgetting the inverse sine.
+
+Phase sensitivity:
+$$
+\Delta \phi = \frac{4 \pi \Delta d}{\lambda}
+$$
+Exam trap: forgetting that smaller wavelength means larger phase sensitivity.
+
+Wavelength:
+$$
+\lambda = \frac{c}{f}
+$$
+Exam trap: mixing up propagation speed $c$ with target speed.
+
+IF frequency shift from distance change:
+$$
+\Delta f = S \cdot \frac{2 \Delta d}{c}
+$$
+Exam trap: confusing it with FFT frequency resolution.
+
+Sanity check:
+$$
+\lambda = 4\text{ mm}, \quad \Delta d = 1\text{ mm} \Rightarrow \Delta \phi = \pi
+$$
+Exam trap: if the answer is far from $\pi$, the wavelength or unit conversion is probably wrong.
+
+Wireless Sensing and Localization Formula List:
+
+CSI amplitude:
+$$
+|CSI| = \sqrt{a^2 + b^2} = \sqrt{\text{real}^2 + \text{imag}^2}
+$$
+Exam trap: adding real and imaginary parts directly instead of taking magnitude.
+
+CSI phase:
+$$
+\phi = \arctan\left(\frac{b}{a}\right) = \arctan\left(\frac{\text{imag}}{\text{real}}\right)
+$$
+Exam trap: ignoring sign and quadrant when the real part is negative or zero.
+
+FFT frequency resolution:
+$$
+\Delta f = \frac{1}{T}
+$$
+Exam trap: thinking higher sampling rate alone improves frequency resolution when longer observation time is what matters here.
+
+RSSI fingerprinting Euclidean distance:
+$$
+d(A, B) = \sqrt{\sum (p_i - q_i)^2}
+$$
+Exam trap: forgetting to square each difference before summing.
+
+WiFi CIR spatial resolution:
+$$
+\Delta d = \frac{c}{B}
+$$
+Exam trap: confusing it with radar range resolution $\frac{c}{2B}$.
+
+Sanity check:
+$$
+160\text{ MHz} \Rightarrow 0.9375\text{ m}, \quad 80\text{ MHz} \Rightarrow 3.75\text{ m}
+$$
+Exam trap: getting the order backwards; larger bandwidth should give finer resolution.
+
+Evaluation and Motion Formula List:
+
+Precision:
+$$
+	ext{Precision} = \frac{TP}{TP + FP}
+$$
+Exam trap: swapping $FP$ with $FN$.
+
+Recall:
+$$
+	ext{Recall} = \frac{TP}{TP + FN}
+$$
+Exam trap: writing the precision denominator instead.
+
+F1-score:
+$$
+F1 = \frac{2PR}{P + R}
+$$
+Exam trap: taking the simple arithmetic average of precision and recall.
+
+Doppler speed:
+$$
+v = \frac{f_d \cdot \lambda}{2}
+$$
+Exam trap: mixing it with the FMCW inter-chirp phase formula even though the estimation route is different.
+
+Breathing rate:
+$$
+	ext{BPM} = \frac{60}{T}
+$$
+Exam trap: using minutes for $T$ instead of seconds.
+
+Normalized ACF:
+$$
+R(0) = 1
+$$
+Exam trap: accepting a normalized plot whose zero-lag value is not 1.
+
+Acoustic and Tag Formula List:
+
+General resolution:
+$$
+\Delta d = \frac{v}{2B}
+$$
+Exam trap: forgetting that this $v$ is propagation speed in the medium rather than target velocity.
+
+WiFi 1 m resolution target:
+$$
+B \approx 150\text{ MHz}
+$$
+Exam trap: using acoustic speed by accident instead of the speed of light.
+
+Acoustic 1 m resolution target:
+$$
+B \approx 171.5\text{ Hz}
+$$
+Exam trap: still using $c$ for light instead of the speed of sound.
+
+Pseudo-ultrasound example:
+$$
+20\text{ kHz} \text{ to } 24\text{ kHz} \Rightarrow B = 4\text{ kHz} \Rightarrow \Delta d \approx 4.29\text{ cm}
+$$
+Exam trap: using center frequency instead of bandwidth.
